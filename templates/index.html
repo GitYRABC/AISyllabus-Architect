@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Plan Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen active">
+        <div class="home-container">
+            <div class="home-header">
+                <h1>🎓 AI Study Plan Generator</h1>
+                <p class="subtitle">
+                    Transform your syllabus into a personalized, AI-powered study plan
+                    tailored to your learning style and schedule
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🤖 AI-Powered Analysis</h3>
+                    <p>
+                        Advanced AI agents analyze your syllabus, breaking it down into
+                        manageable topics with accurate time estimates
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📅 Smart Scheduling</h3>
+                    <p>
+                        Get a day-by-day study schedule optimized for your available
+                        time and learning pace
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📚 Resource Recommendations</h3>
+                    <p>
+                        Receive curated learning resources matched to your learning
+                        style and each topic
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📊 Progress Tracking</h3>
+                    <p>
+                        Built-in checkpoints and metrics to keep you on track
+                        throughout your learning journey
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="showPlanForm()" class="btn-primary btn-large">
+                Create Your Study Plan →
+            </button>
+        </div>
+    </div>
+
+    <!-- PLAN FORM SCREEN -->
+    <div id="plan-form-screen" class="screen">
+        <nav class="navbar">
+            <h2>📝 Generate Study Plan</h2>
+            <button onclick="backToHome()" class="back-btn">← Back</button>
+        </nav>
+
+        <div class="container">
+            <div class="form-card">
+                <h3>Let's Create Your Perfect Study Plan</h3>
+                <p>Fill in the details below and our AI agents will generate a personalized study plan for you.</p>
+
+                <form id="study-plan-form" class="study-plan-form">
+                    <!-- Syllabus Input -->
+                    <div class="form-section">
+                        <h3>📄 Your Syllabus</h3>
+                        <div class="form-group">
+                            <label>Paste Your Syllabus Here *</label>
+                            <textarea 
+                                id="syllabus-text"
+                                name="syllabus_text"
+                                placeholder="Copy and paste your complete syllabus here...&#10;&#10;Example:&#10;Module 1: Introduction to Python&#10;- Variables and Data Types&#10;- Control Flow&#10;- Functions&#10;&#10;Module 2: Data Structures..."
+                                rows="10"
+                                required
+                            ></textarea>
+                            <small class="file-info">Include topics, modules, chapters - as much detail as possible</small>
+                        </div>
+                    </div>
+
+                    <!-- Learning Preferences -->
+                    <div class="form-section">
+                        <h3>🎨 Your Learning Style</h3>
+                        
+                        <div class="form-group">
+                            <label>How do you learn best? *</label>
+                            <select id="learning-style" name="learning_style" required>
+                                <option value="">Select your learning style...</option>
+                                <option value="visual">Visual (diagrams, videos, charts)</option>
+                                <option value="auditory">Auditory (lectures, podcasts, discussions)</option>
+                                <option value="reading-writing">Reading/Writing (textbooks, notes, articles)</option>
+                                <option value="kinesthetic">Kinesthetic (hands-on, practice, experiments)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Daily Study Time Available *</label>
+                            <select id="study-hours" name="study_hours" required>
+                                <option value="">Select hours per day...</option>
+                                <option value="1-2">1-2 hours/day</option>
+                                <option value="2-3">2-3 hours/day</option>
+                                <option value="4-6">4-6 hours/day</option>
+                                <option value="6-8">6-8 hours/day</option>
+                                <option value="8+">8+ hours/day</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Learning Pace *</label>
+                            <select id="learn-pace" name="learning_pace" required>
+                                <option value="">Select your pace...</option>
+                                <option value="slow">Slow & Steady (more repetition)</option>
+                                <option value="moderate">Moderate (balanced approach)</option>
+                                <option value="fast">Fast (quick coverage)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Additional Preferences (Optional)</label>
+                            <textarea 
+                                id="additional-prefs" 
+                                name="learning_preferences" 
+                                placeholder="Any specific preferences? e.g., 'I prefer morning study sessions', 'I need more practice problems', 'Focus on conceptual understanding'..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Study Duration -->
+                    <div class="form-section">
+                        <h3>⏱️ Time Frame</h3>
+                        <div class="form-group">
+                            <label>How many days do you have? *</label>
+                            <input 
+                                type="number"
+                                id="study-duration"
+                                name="study_duration_days"
+                                min="7"
+                                max="365"
+                                value="30"
+                                required
+                            />
+                            <small class="file-info">Enter total days available for completing this syllabus (7-365 days)</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large">
+                        🚀 Generate My Study Plan
+                    </button>
+                </form>
+
+                <!-- Loader -->
+                <div id="form-loader" class="loader" style="display: none">
+                    <div class="spinner"></div>
+                    <p>🤖 AI agents are analyzing your syllabus and creating your personalized study plan...</p>
+                    <div class="agent-status">
+                        <div class="agent-step">✓ Analyzing syllabus structure...</div>
+                        <div class="agent-step">✓ Assessing learning preferences...</div>
+                        <div class="agent-step">✓ Building optimal schedule...</div>
+                        <div class="agent-step">✓ Recommending resources...</div>
+                        <div class="agent-step">✓ Setting up progress tracking...</div>
+                    </div>
+                </div>
+
+                <div id="form-status" style="margin-top: 1rem; color: var(--error);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="results-screen" class="screen">
+        <nav class="navbar">
+            <h2>✅ Your Study Plan is Ready!</h2>
+            <button onclick="backToHome()" class="back-btn">← Create New Plan</button>
+        </nav>
+
+        <div class="container">
+            <div class="results-container">
+                <!-- Summary Card -->
+                <div class="results-card">
+                    <h3>📊 Plan Overview</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <h4>Plan ID</h4>
+                            <p id="summary-plan-id">-</p>
+                        </div>
+                        <div class="summary-item">
+                            <h4>Duration</h4>
+                            <p id="summary-duration">-</p>
+                        </div>
+                        <div class="summary-item">
+                            <h4>Total Hours</h4>
+                            <p id="summary-hours">-</p>
+                        </div>
+                        <div class="summary-item">
+                            <h4>Learning Style</h4>
+                            <p id="summary-style">-</p>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button onclick="downloadPlan()" class="btn-primary">
+                            📥 Download PDF
+                        </button>
+                        <button onclick="viewPlanDetails()" class="btn-secondary">
+                            👁️ View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Detailed Plan (Hidden by default) -->
+                <div id="plan-details" class="results-card" style="display: none;">
+                    <h3>📋 Detailed Study Plan</h3>
+                    <div id="details-content">
+                        Loading details...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
