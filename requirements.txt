@@ -4,3 +4,4 @@ fpdf==1.7.2
 crewai==1.6.1
 litellm==1.80.7
 langchain-groq==1.1.0
+gunicorn
