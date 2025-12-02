@@ -1,6 +1,7 @@
 # 🎓 AISyllabus-Architect
 
 **Autonomous AI Study Planner: Generates hyper-fast, personalized, and structured study schedules from raw syllabus input.**
+Live at: (https://aisyllabus-architect.onrender.com)
 
 ## ⚡ Key Features
 
@@ -54,3 +55,4 @@ Create a file named **`.env`** in the root directory and add your Groq API key:
 # Replace 'gsk_...' with your actual Groq API Key
 GROQ_API_KEY=gsk_yoursuperlongsecretkeyxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 PORT=5000
+
