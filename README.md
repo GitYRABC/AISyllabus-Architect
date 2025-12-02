@@ -1,0 +1,18 @@
+🛠️ Tool CallThat's a fantastic, professional name! AISyllabus-Architect is clear, smart, and specific to the function.Here is a comprehensive README.md file designed for your project. It follows best practices by explaining the purpose, technologies, and clear setup instructions.
+🎓 AISyllabus-ArchitectAn autonomous study planner that generates personalized, day-by-day learning schedules and resource recommendations from a simple syllabus input.This project leverages the power of a multi-agent system (CrewAI) powered by the lightning-fast Groq API to analyze educational content and synthesize structured study plans, eliminating the cognitive load of manual time management.
+✨ Key FeaturesAgent-Powered Analysis: Uses a crew of specialized AI agents (Analyzer, Architect, Recommender) to perform complex, chained tasks.Hyper-Fast Generation: Powered by Groq (Llama 3), study plans are generated almost instantly, perfect for production use.Personalized Scheduling: Generates detailed daily sessions, topics, and activities tailored to the user's study duration and preferred learning style.Structured Output: Ensures reliable, parsable data for the web application and PDF generation via explicit JSON prompting.PDF Report Generation: Creates a downloadable, formatted PDF summary of the study plan using FPDF.🛠️ Technologies UsedComponentTechnologyDescriptionOrchestrationCrewAIFramework for defining and managing the multi-agent workflow.LLM InferenceGroqProvides high-speed, low-latency inference for the Llama 3 model.BackendFlaskLightweight Python web framework for the API and frontend serving.ModelLlama 3.3 70BThe large language model driving the analysis and scheduling logic.DependenciesLiteLLM, Langchain-GroqHandle secure, compatible API routing and data structuring.
+🚀 Getting StartedFollow these steps to get the application running locally on your machine.PrerequisitesPython 3.10+A Groq API Key (Get one for free at console.groq.com).InstallationClone the Repository (or download your files):Bashgit clone [(https://github.com/GitYRABC/AISyllabus-Architect)].
+cd AISyllabus-Architect
+Create a Virtual EnvironmentIt's crucial to isolate dependencies.Bashpython -m venv venv
+# Activate the environment:
+# Windows: .\venv\Scripts\activate
+# macOS/Linux: source venv/bin/activate
+Install DependenciesThe requirements.txt file is clean and pinned to the stable versions that are known to work with Groq.Bashpip install -r requirements.txt
+Configuration (The .env file)Create a file named .env in the root directory of the project and add your Groq API key:Plaintext# Replace 'gsk_yourkeyhere' with your actual Groq API Key
+GROQ_API_KEY=gsk_FpMAUhUxxxxxxxxxxxxxxxxxxxxxxxxx
+PORT=5000
+🏃 Running the ApplicationStart the Flask ServerEnsure your virtual environment is active before running:Bashpython app.py
+Access the AppThe terminal will show a link. Open your web browser and navigate to:http://127.0.0.1:5000
+(You will need to implement the frontend in templates/index.html to fully use the /api/generate-plan endpoint.)
+🧠 Workflow DiagramThe system operates as a sequential crew to ensure logical output:Syllabus Analyzer (Agent): Takes raw text input and converts it into a structured JSON list of subjects and estimated hours.Schedule Architect (Agent): Takes the JSON syllabus and the user's duration/preferences. Generates a day-by-day JSON timetable.Resource Recommender (Agent): Takes the final plan and generates specific links/resources tailored to the topics.Final Output: The structured plan is saved, and the PDF is generated.
+📝 LicenseThis project is licensed under the MIT License - see the LICENSE file for details.
